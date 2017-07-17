@@ -1,0 +1,1 @@
+javac -d Class %1 2> output\error.txt 

@@ -1,0 +1,6 @@
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\bin\Debug\javaModule.exe.config
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\bin\Debug\javaModule.exe
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\bin\Debug\javaModule.pdb
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\obj\Debug\javaModule.csprojResolveAssemblyReference.cache
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\obj\Debug\javaModule.exe
+D:\Developer\WorkSpace\visual studio 2017\Projects\Codos\javaModule\javaModule\obj\Debug\javaModule.pdb
