@@ -1,0 +1,109 @@
+----------------------------------------------------------------------------------------------------------
+(I)
+user(user_name pk ,pass password,full_name text,email_id text,dob date,doj date,profession text,
+	country text,city text,languages text ,links text,BinaryColumnImage image)
+
+1. user_name pk type : alphanumeric and special characters
+2. full_name composite attribute : first_name Last_Name
+3. dob date
+4. doj date : date of joining CODOS
+5. profession : text (Student,Teacher,TeamLeader at Accenture and so on)
+6. Country : text
+7. City : text
+8. Languages : text (i.e string in oracle) 
+	in html we will provide checkboxes for different languages and on form submission , we'll append all selected in a string
+	this string is stored in languages.
+	this is displayed as languaes known in Profile.
+	using string.split("\\,") and storing in an array we can acces different strings and show themas selected or check in
+	html when user wants to update settings.
+9. links :  type text.  
+		1.website
+		2.blog
+		3.git
+		4.linkedin
+		5.facebook
+		6.twitter
+	all are , seperated.
+	example :  user_links="www.hackerearth.com,,www.git.com/niksarrow,www.linkedin.com/@niksarrow,,www.twitter.com/niksarrow"
+	there will always be 6 strings i.e 5 , always
+	for those links which aren't present and empty string would be present.
+	all links will be in the same sequqnce .
+10. pass : type password
+11. BinaryColumnImage : type image 
+12. email_id : text.
+----------------------------------------------------------------------------------------------------------
+(II)
+user_extra(user_name text pk fk,Projects text,Experience text,Tools&Librarirestext,AnyCodos text)
+
+1.AnyCodos : Any other achievement which ze likes to mention.
+----------------------------------------------------------------------------------------------------------
+(III)
+
+user_stats(user_name text pk fk,no_prob_solved int ,soln_submitted int ,soln_accepted int,wrong_submission int,
+		CodosRating int)
+----------------------------------------------------------------------------------------------------------
+(IV)
+
+user_solns(user_name text fk,problem_id text fk uk,code_soln text,lang text nn,status bool)
+1. (user_name + prob_id) = primary key
+2. code_soln text: the submitted code by the user for a particular prob_id.
+3. status bool: 0=Not Accepted, 1=Accepted.
+4.lang text: programming language used for the specific problem: not nul
+
+Note : if accepted = 1 then only a entry in accepted_times table would be generated.
+----------------------------------------------------------------------------------------------------------
+(V)
+
+accepted_times(user_name text fk pk,problem_id text pk, Compile_time double,Execution_time double,points int) 
+1.points type:int 
+	if problem is not rated , reward 5 Codos Points
+	else reward 5 + (max_time_limit * execution_time)*5000
+
+Note: We have 2 buttons: 
+1. Compile and run
+2. Submit Code
+
+Case 1: Compile and Run 
+	code will be executed at server 
+		-if errors , error log will be transfered to client
+		-if no errors , wrong output then c_time,run_time will be sent to client
+		-if no errors, correct output then compare execution time with max_run_time allowed
+			if execution time <= max_run_time
+				send user that Correct Solution
+			else 	
+				Runtime Limit Exceeded, send a msg to optimize code.
+case 2: Submit 
+	code will be executed at server 
+		-if errors , error log will be transfered to client
+		-if no errors , but wrong output then c_time,run_time will be sent to client
+		-if no errors, correct output then compare execution time with max_run_time allowed
+			if execution time <= max_run_time
+				send user that Correct Solution
+				update table user_stats and accepted_times
+			else 	
+				Runtime Limit Exceeded, send a msg to optimize code.	
+----------------------------------------------------------------------------------------------------------
+(VI)		 
+problem_set(prob_id pk,prob_name text,max_time_limit double nn,rated bool)
+1. rated : type boolean	
+	-it is used to count the number of rated problems submitted by user
+	-if problem is rated them based on difference value of(max_time_limit - execution_time) 
+		extra CodosPoints will be rewarded.
+----------------------------------------------------------------------------------------------------------
+(VII)
+challanges(challange_id text pk,host_id text nn uk,ch_name text,ch_host text, st_date date,end_date date,ch_type text)
+1.ch_type : only 3 types 
+			-hiring
+			-hackathon
+			-rated only
+----------------------------------------------------------------------------------------------------------
+(VIII)
+//problems for challanges
+challange_problem_set(prob_id fk,host_id fk)
+Note:challange_problem_set inherits problem_set
+1. primarykey = (prob_id + host_id)
+here host_id can repeat as one host will put multiple problems in their challange.
+__________________________________________________________________________________________________________
+LEFT:
+1.apply for job: let's take a halt and not do this.
+2.Resume upload(docx,pdf,doc)
